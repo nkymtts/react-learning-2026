@@ -14,3 +14,30 @@ The React Compiler is currently not compatible with SWC. See [this issue](https:
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+【ページ一覧】
+
+1. TOPページ
+2. クイズページ
+3. 結果ページ
+
+【機能一覧】
+
+1. TOPページ
+
+- ボタン: 押したらクイズページへ遷移
+
+2. クイズページ
+
+- 問題文を表示
+- 選択肢を表示
+- 押したら...
+  1. 成語判定を行い、記録しておく
+  2. 問題文がまだあれば次の問題文を表示
+  3. 問題文がもうなければ結果ページへ遷移
+
+3. 結果ページ
+
+- 表示までの演出(カーテンコール)を1~2秒表示させて非表示
+- クラッカー演出
+- 問題総数と正解数を取得し、表示
