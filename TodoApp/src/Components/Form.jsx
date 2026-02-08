@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const Form = (props) => {
   const { p_送信を実行 } = props;
 
   const [str_追加タスク, set_str追加タスク] = useState("");
+  const ref_テキストボックス = useRef(null);
 
   const 自コンポーネントでテキストボックス更新 = (e) => {
     const strNew_追加タスク = e.currentTarget.value;
@@ -14,6 +15,7 @@ const Form = (props) => {
     e.preventDefault();
     p_送信を実行(str_追加タスク);
     set_str追加タスク("");
+    ref_テキストボックス.current.focus();
   };
 
   return (
@@ -22,6 +24,7 @@ const Form = (props) => {
         type="text"
         value={str_追加タスク}
         onChange={自コンポーネントでテキストボックス更新}
+        ref={ref_テキストボックス}
       />
       <button>Add</button>
     </form>
