@@ -1,14 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Form from "./Components/Form";
 import Li from "./Components/Li";
 
 function App() {
-  const [arr_objTodo, set_arrObjTodo] = useState([
-    { numID: 0, strタスク: "ランニング", is完了: false },
-    { numID: 1, strタスク: "シャワー", is完了: true },
-    { numID: 2, strタスク: "朝食", is完了: false },
-  ]);
+  const [arr_objTodo, set_arrObjTodo] = useState(() => {
+    return JSON.parse(localStorage.getItem("TodoAppキー")) || [];
+  });
+
+  useEffect(() => {
+    document.title = `Todoリストアイテム: ${arr_objTodo.length} 件`;
+  }, [arr_objTodo]);
+
+  const 自コンポーネントで保存 = (arrNew_objTodo) => {
+    set_arrObjTodo(arrNew_objTodo);
+    localStorage.setItem("TodoAppキー", JSON.stringify(arrNew_objTodo));
+  };
 
   const Liコンポーネントでis完了をトグル = (obj_todo) => {
     const arrNew_objTodo = arr_objTodo.map((obj_ループ) => {
@@ -21,7 +28,7 @@ function App() {
             : obj_ループ.is完了,
       };
     });
-    set_arrObjTodo(arrNew_objTodo);
+    自コンポーネントで保存(arrNew_objTodo);
   };
 
   const Liコンポーネントでobj_todoを個別削除 = (obj_todo) => {
@@ -29,7 +36,7 @@ function App() {
     const arrNew_objTodo = arr_objTodo.filter((obj_ループ) => {
       return obj_ループ.numID !== obj_todo.numID;
     });
-    set_arrObjTodo(arrNew_objTodo);
+    自コンポーネントで保存(arrNew_objTodo);
   };
 
   const 自コンポーネントでobj_todoを一括削除 = () => {
@@ -37,7 +44,7 @@ function App() {
     const arrNew_objTodo = arr_objTodo.filter((obj_ループ) => {
       return obj_ループ.is完了 === false;
     });
-    set_arrObjTodo(arrNew_objTodo);
+    自コンポーネントで保存(arrNew_objTodo);
   };
 
   const Formコンポーネントでobj_todoを個別追加 = (str_追加タスク) => {
@@ -48,7 +55,7 @@ function App() {
       is完了: false,
     };
     arrNew_objTodo.push(objNew_todo);
-    set_arrObjTodo(arrNew_objTodo);
+    自コンポーネントで保存(arrNew_objTodo);
   };
 
   const arr_Li = arr_objTodo.map((obj_ループ) => {
